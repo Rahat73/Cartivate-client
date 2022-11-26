@@ -3,6 +3,7 @@ import logo from '../../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { useContext } from 'react';
+import { MdOutlineDashboard } from 'react-icons/md';
 
 const Header = () => {
 
@@ -27,9 +28,6 @@ const Header = () => {
                             <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="/">
                                 Home
                             </Link></li>
-                            <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="services">
-                                Services
-                            </Link></li>
                             <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="blog">
                                 Blog
                             </Link></li>
@@ -38,7 +36,6 @@ const Header = () => {
                                     <>
                                         <ul className="menu menu-horizontal p-0 items-center">
                                             <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to={`/myReviews/${user?.uid}`}>My reviews</Link></li>
-                                            <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to='/addService'>Add service</Link></li>
                                             <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link onClick={handleLogOut}>Log Out</Link></li>
                                         </ul>
                                     </>
@@ -52,14 +49,14 @@ const Header = () => {
                         </ul>
                     </div>
                     <Link to="/"><button><img className='h-16 lg:h-20' src={logo} alt="logo" /></button></Link>
+                    <label tabIndex="2" className="btn btn-ghost lg:hidden" htmlFor='dashboard-drawer'>
+                        <MdOutlineDashboard className='text-2xl'></MdOutlineDashboard>
+                    </label>
                 </div>
                 <div className="navbar-center hidden lg:flex mx-20">
                     <ul className="menu menu-horizontal p-0 items-center">
                         <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="/">
                             Home
-                        </Link></li>
-                        <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="services">
-                            Services
                         </Link></li>
                         <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to="blog">
                             Blog
@@ -72,7 +69,7 @@ const Header = () => {
                             <>
                                 <ul className="menu menu-horizontal p-0 items-center">
                                     <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to={`/myReviews/${user?.uid}`}>My reviews</Link></li>
-                                    <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to='/addService'>Add service</Link></li>
+                                    <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to='/dashboard'>Dashboard</Link></li>
                                     <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link onClick={handleLogOut}>Log Out</Link></li>
                                 </ul>
                             </>
