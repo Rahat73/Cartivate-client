@@ -12,22 +12,34 @@ const Registration = () => {
     }, []);
 
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [data, setData] = useState("");
 
-    const { createUser, googleSignInProvider } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleSignInProvider } = useContext(AuthContext);
 
     const googleProvider = new GoogleAuthProvider();
 
+    const handleUpdateUserProfile = (name) => {
+        const profile = {
+            displayName: name,
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(e => {
+                toast.error(e.message);
+            });
+    }
 
-    const handleRegistration = (data, event) => {
-        event.preventDefault();
+    const handleRegistration = (data) => {
         setData(JSON.stringify(data))
         if (data.password === data.confirmPassword) {
             createUser(data.email, data.password)
                 .then(result => {
                     const user = result.user;
-                    toast.success('Registration was successful..!');
+                    console.log(user)
+                    handleUpdateUserProfile(data.name);
+                    toast.success(`Welcome to Cartivate ${data.name}`);
+                    reset();
                 })
                 .catch(err => toast.error(err))
         }

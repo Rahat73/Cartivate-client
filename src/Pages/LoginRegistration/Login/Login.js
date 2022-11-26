@@ -14,7 +14,7 @@ const Login = () => {
     }, []);
 
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [data, setData] = useState("");
 
     const { setLoading, signIn, googleSignInProvider } = useContext(AuthContext);
@@ -24,12 +24,17 @@ const Login = () => {
 
     const googleProvider = new GoogleAuthProvider();
 
-    const handleLogin = (event) => {
-        event.preventDefault();
+    const handleLogin = (data) => {
         setData(JSON.stringify(data))
-
-
-
+        signIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user.displayName)
+                toast.success(`Welcome to Cartivate ${user.displayName}`);
+                reset();
+            })
+            .catch(err => toast.error(err));
+        reset();
     }
 
     const handleGoogleSignIn = () => {
