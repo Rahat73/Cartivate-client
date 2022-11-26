@@ -17,7 +17,7 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [data, setData] = useState("");
 
-    const { setLoading, signIn, googleSignInProvider } = useContext(AuthContext);
+    const { signIn, googleSignInProvider } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/'
@@ -32,9 +32,9 @@ const Login = () => {
                 console.log(user.displayName)
                 toast.success(`Welcome to Cartivate ${user.displayName}`);
                 reset();
+                navigate(from, { replace: true });
             })
             .catch(err => toast.error(err));
-        reset();
     }
 
     const handleGoogleSignIn = () => {
