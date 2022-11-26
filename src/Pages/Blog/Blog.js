@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useTitle from '../../hook/useTitle';
+// import useTitle from '../../hook/useTitle';
 
 const Blog = () => {
     useEffect(() => {
@@ -7,7 +7,7 @@ const Blog = () => {
     }, []);
 
 
-    useTitle('Blog');
+    // useTitle('Blog');
     return (
         <div className='w-10/12 mx-auto mb-16'>
             <h1 className='text-4xl my-10'>Blog</h1>
