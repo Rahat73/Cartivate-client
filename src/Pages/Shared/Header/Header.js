@@ -1,28 +1,23 @@
 // import React, { useContext } from 'react';
 import logo from '../../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
-// import { AuthContext } from '../../Contexts/AuthProvider';
+import { AuthContext } from '../../Contexts/AuthProvider';
+import { useContext } from 'react';
 
 const Header = () => {
 
-    //const { user, logOut } = useContext(AuthContext);
-
-    const user = {
-        uid: 123,
-        photoURL: 'https://i.ibb.co/RzbQmmn/PUBG.jpg',
-        displayName: 'Rahat'
-    }
+    const { user, logOut } = useContext(AuthContext);
 
     //console.log(user);
     const handleLogOut = () => {
-        // logOut()
-        //     .then(() => { })
-        //     .catch(error => console.error(error))
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
     }
 
     return (
-        <div>
-            <div className="navbar bg-base-300 justify-between pt-1 pb-0 px-14 shadow-md">
+        <div className='sticky top-0'>
+            <div className="navbar bg-white justify-between pt-1 pb-0 px-14 shadow-md">
                 <div className="">
                     <div className="dropdown">
                         <label tabIndex="0" className="btn btn-ghost lg:hidden">
