@@ -1,0 +1,20 @@
+[
+    {
+        "_id": "1",
+        "category": "Pony car",
+        "image": "https://i.ibb.co/hfdZLWY/pony-car.jpg",
+        "desc": "Flex your muscle. Be the TOP-G in the hood."
+    },
+    {
+        "_id": "2",
+        "category": "SUV",
+        "image": "https://i.ibb.co/w0yRzZX/suv.jpg",
+        "desc": "Need more space? Get exactly what you need."
+    },
+    {
+        "_id": "3",
+        "category": "Sports car",
+        "image": "https://i.ibb.co/bQw64fj/sports-car.jpg",
+        "desc": "Need for speed? Get affordable ones"
+    }
+]

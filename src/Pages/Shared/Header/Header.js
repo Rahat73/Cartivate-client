@@ -35,7 +35,6 @@ const Header = () => {
                                 user?.uid ?
                                     <>
                                         <ul className="menu menu-horizontal p-0 items-center">
-                                            <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to={`/myReviews/${user?.uid}`}>My reviews</Link></li>
                                             <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link onClick={handleLogOut}>Log Out</Link></li>
                                         </ul>
                                     </>
@@ -68,7 +67,6 @@ const Header = () => {
                         user?.uid ?
                             <>
                                 <ul className="menu menu-horizontal p-0 items-center">
-                                    <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to={`/myReviews/${user?.uid}`}>My reviews</Link></li>
                                     <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link to='/dashboard'>Dashboard</Link></li>
                                     <li className=' border-4 border-transparent hover:border-b-white text-lg'><Link onClick={handleLogOut}>Log Out</Link></li>
                                 </ul>
