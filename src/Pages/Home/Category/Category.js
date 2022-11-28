@@ -1,14 +1,22 @@
-// import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
 
 const Category = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        fetch('Category.json')
+
+
+    const { data: categories = [] } = useQuery({
+        queryKey: ['categories'],
+        queryFn: () => fetch('Category.json')
             .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
+    })
+
+    // const [categories, setCategories] = useState([]);
+    // useEffect(() => {
+    //     fetch('Category.json')
+    //         .then(res => res.json())
+    //         .then(data => setCategories(data))
+    // }, [])
     console.log(categories)
     return (
         <div className='px-10 py-20'>
