@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
 
 const Category = () => {
@@ -17,7 +17,7 @@ const Category = () => {
     //         .then(res => res.json())
     //         .then(data => setCategories(data))
     // }, [])
-    console.log(categories)
+    // console.log(categories)
     return (
         <div className='px-10 py-20'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-7'>

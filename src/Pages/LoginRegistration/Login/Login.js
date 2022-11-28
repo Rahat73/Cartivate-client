@@ -2,7 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from "react-icons/fa";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { toast } from 'react-toastify';
 
@@ -68,8 +68,11 @@ const Login = () => {
                         <input type="password" {...register("password", { required: "Password is required" })} className="input input-bordered w-full max-w-xs" placeholder="Enter your password" required />
                         {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
                     </div>
-                    <p>{data}</p>
-                    <input className='btn my-5' type="submit" />
+                    <p className='hidden'>{data}</p>
+                    <button className='btn btn-primary my-5' type='submit'>Login</button>
+                    <div className='my-3'>
+                        <p>Don't have an Account? <Link className='text-lg text-primary' to='/registration'>Register</Link></p>
+                    </div>
                 </form>
                 <div className="divider w-10/12 mx-auto">OR</div>
                 <button onClick={handleGoogleSignIn} className='btn btn-outline btn-primary border border-slate-00'><FaGoogle className='mr-2 text-lg text-white'></FaGoogle> <p className=' text-white capitalize text-lg font-semibold'>SignIn with Google</p></button>

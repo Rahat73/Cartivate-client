@@ -17,7 +17,7 @@ const MyOrders = () => {
                     <tbody>
                         {/* <!-- row 1 --> */}
                         <tr className='hover'>
-                            <th></th>
+                            <th>1</th>
                             <td>
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
@@ -47,7 +47,8 @@ const MyOrders = () => {
                     </tfoot>
 
                 </table>
-            </div>        </div>
+            </div>
+        </div>
     );
 };
 
