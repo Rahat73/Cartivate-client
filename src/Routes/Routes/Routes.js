@@ -7,6 +7,7 @@ import Error from "../../Pages/Error/Error";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/LoginRegistration/Login/Login";
 import Registration from "../../Pages/LoginRegistration/Registration/Registration";
+import Products from "../../Pages/Products/Products";
 import TermsAndConditions from "../../Pages/TermsAndConditions/TermsAndConditions";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
@@ -30,6 +31,11 @@ export const router = createBrowserRouter([
             {
                 path: '/registration',
                 element: <Registration></Registration>
+            },
+            {
+                path: '/products/:categoryId',
+                loader: async ({ params }) => fetch(`http://localhost:5000/products/${params.categoryId}`),
+                element: <Products></Products>,
             },
             {
                 path: '/T&C',
