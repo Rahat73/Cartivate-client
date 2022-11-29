@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
 
 const Registration = () => {
@@ -23,21 +22,6 @@ const Registration = () => {
 
     const googleProvider = new GoogleAuthProvider();
 
-
-    const saveUser = (name, email, userType) => {
-        const user = { name, email, userType };
-        fetch('http://localhost:5000/users', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then(data => {
-                navigate('/');
-            })
-    }
 
     const handleUpdateUserProfile = (name, email, userType) => {
         const profile = {
@@ -69,22 +53,35 @@ const Registration = () => {
             toast.error("Passwords doesn't match");
     }
 
-    const [userEmail, setUserEmail] = useState();
+    // const { data: users = [] } = useQuery({
+    //     queryKey: ['users', userDetails],
+    //     queryFn: () => fetch(`http://localhost:5000/users/${userDetails}`)
+    //         .then(res => res.json())
+    // })
 
-    const { data: users = [] } = useQuery({
-        queryKey: ['users'],
-        queryFn: () => fetch(`http://localhost:5000/users/${userEmail}`)
+    // console.log(users)
+
+    const saveUser = (name, email, userType) => {
+        const user = { name, email, userType };
+        fetch(`http://localhost:5000/users/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
             .then(res => res.json())
-    })
+            .then(data => {
+                navigate('/');
+            })
+    }
 
     const handleGoogleSignIn = () => {
         googleSignInProvider(googleProvider)
             .then(result => {
                 const user = result.user;
-                setUserEmail(user.email);
-                if (users.length > 0) {
-                    saveUser(user.displayName, user.email, "Buyer");
-                }
+                console.log(user)
+                saveUser(user.displayName, user.email, "Buyer");
                 toast.success(`Welcome to Cartivate ${user.displayName}`);
             })
             .catch(e => {
@@ -151,7 +148,7 @@ const Registration = () => {
                     <p className=''>{data}</p>
                     <button className='btn btn-primary my-5' type='submit'>Register</button>
                     <div className='my-3'>
-                        <p>Don't have an Account? <Link className='text-lg text-primary' to='/login'>Register</Link></p>
+                        <p>Don't have an Account? <Link className='text-lg text-primary' to='/login'>Login</Link></p>
                     </div>
                 </form>
                 <div className="divider w-10/12 mx-auto">OR</div>

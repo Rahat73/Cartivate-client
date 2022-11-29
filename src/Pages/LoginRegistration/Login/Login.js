@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { toast } from 'react-toastify';
 
+
 const Login = () => {
 
 
@@ -37,11 +38,28 @@ const Login = () => {
             .catch(err => toast.error(err));
     }
 
+
+    const saveUser = (name, email, userType) => {
+        const user = { name, email, userType };
+        fetch(`http://localhost:5000/users/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                navigate('/');
+            })
+    }
+
     const handleGoogleSignIn = () => {
         googleSignInProvider(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log('google', user);
+                saveUser(user.displayName, user.email, "Buyer");
+                toast.success(`Welcome to Cartivate ${user.displayName}`);
                 navigate(from, { replace: true });
             })
             .catch(e => {
