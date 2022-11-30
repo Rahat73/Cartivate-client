@@ -10,6 +10,7 @@ const AllSellers = () => {
             .then(res => res.json())
     })
 
+    console.log(sellers)
 
     const handleVerify = (sellerId) => {
         fetch(`http://localhost:5000/users/verify/${sellerId}`, {
@@ -18,6 +19,7 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                toast.success('User verified successfully');
             })
         refetch();
     }
@@ -29,11 +31,11 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                toast.success('User refuted successfully');
             })
         refetch();
     }
 
-    console.log(sellers)
 
     const handleDelete = id => {
         const agree = window.confirm('Are you sure to DELETE the review?')
