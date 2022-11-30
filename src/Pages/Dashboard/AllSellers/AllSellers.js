@@ -1,13 +1,36 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { FaCheckCircle } from "react-icons/fa";
 
 const AllSellers = () => {
 
-    const { data: sellers = [] } = useQuery({
+    const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: () => fetch(`http://localhost:5000/users/admin/sellers`)
             .then(res => res.json())
     })
+
+
+    const handleVerify = (sellerId) => {
+        fetch(`http://localhost:5000/users/verify/${sellerId}`, {
+            method: 'PUT',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+        refetch();
+    }
+
+    const handleRefute = sellerId => {
+        fetch(`http://localhost:5000/users/refute/${sellerId}`, {
+            method: 'PUT',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+        refetch();
+    }
 
     console.log(sellers)
     return (
@@ -20,7 +43,7 @@ const AllSellers = () => {
                         <tr>
                             <th></th>
                             <th>Sellers</th>
-                            <th>Verified</th>
+                            <th>Verify</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -37,13 +60,30 @@ const AllSellers = () => {
                                                     <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div className="font-bold">{seller.name}</div>
-                                                <div className="">{seller.email}</div>
+                                            <div className='indicator items-center'>
+                                                <div>
+                                                    <div className="font-bold">{seller.name}</div>
+                                                    <div className="">{seller.email}</div>
+                                                </div>
+                                                {
+                                                    seller.verified &&
+                                                    <span><FaCheckCircle className='text-2xl text-blue-600 ml-2'></FaCheckCircle></span>
+                                                }
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{seller.verified}</td>
+                                    <td>
+                                        {
+                                            !seller.verified ?
+                                                <>
+                                                    <button onClick={() => handleVerify(seller._id)} className="btn btn-xs font-semibold">Verify</button>
+                                                </>
+                                                :
+                                                <>
+                                                    <button onClick={() => handleRefute(seller._id)} className="btn btn-xs font-semibold">Refute</button>
+                                                </>
+                                        }
+                                    </td>
                                     <th className='text-center'>
                                         <button className="btn btn-xs font-semibold">Remove</button>
                                     </th>
@@ -55,8 +95,8 @@ const AllSellers = () => {
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Products</th>
-                            <th>Price</th>
+                            <th>Sellers</th>
+                            <th>Verify</th>
                             <th></th>
                         </tr>
                     </tfoot>
