@@ -22,10 +22,24 @@ const Registration = () => {
 
     const googleProvider = new GoogleAuthProvider();
 
+    const saveUser = (name, email, userType) => {
+        const user = { name, email, userType };
+        fetch(`http://localhost:5000/users/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                navigate('/');
+            })
+    }
 
     const handleUpdateUserProfile = (name, email, userType) => {
         const profile = {
-            displayName: name,
+            displayName: name
         }
         updateUserProfile(profile)
             .then(() => {
@@ -43,11 +57,14 @@ const Registration = () => {
                 .then(result => {
                     const user = result.user;
                     console.log(user)
+                    reset();
                     handleUpdateUserProfile(data.name, data.email, data.userType);
                     toast.success(`Welcome to Cartivate ${data.name}`);
-                    reset();
+
                 })
-                .catch(err => toast.error(err))
+                .catch(e => {
+                    toast.error(e.message);
+                });
         }
         else
             toast.error("Passwords doesn't match");
@@ -60,21 +77,6 @@ const Registration = () => {
     // })
 
     // console.log(users)
-
-    const saveUser = (name, email, userType) => {
-        const user = { name, email, userType };
-        fetch(`http://localhost:5000/users/${email}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then(data => {
-                navigate('/');
-            })
-    }
 
     const handleGoogleSignIn = () => {
         googleSignInProvider(googleProvider)
