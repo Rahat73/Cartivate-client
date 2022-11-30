@@ -19,8 +19,6 @@ const DashboardLayout = () => {
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
                     <Outlet></Outlet>
-                    <label htmlFor="dashboard-drawer" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
@@ -32,8 +30,8 @@ const DashboardLayout = () => {
                         }
                         {
                             isSeller && <>
-                                <li><Link>Add a prduct</Link></li>
-                                <li><Link>My products</Link></li>
+                                <li><Link to={'/dashboard/addproduct'}>Add a prduct</Link></li>
+                                <li><Link to={'/dashboard/myproducts'}>My products</Link></li>
                                 <li><Link>My buyers</Link></li>
                             </>
                         }
