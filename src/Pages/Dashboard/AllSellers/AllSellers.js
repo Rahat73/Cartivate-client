@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { FaCheckCircle } from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 const AllSellers = () => {
 
@@ -33,6 +34,23 @@ const AllSellers = () => {
     }
 
     console.log(sellers)
+
+    const handleDelete = id => {
+        const agree = window.confirm('Are you sure to DELETE the review?')
+        if (agree) {
+            fetch(`http://localhost:5000/users/${id}`, {
+                method: `DELETE`
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        toast.success('User deleted successfully');
+                        refetch();
+                    }
+                });
+        }
+    }
+
     return (
         <div className='h-full w-full bg-base-300'>
             <h1 className='text-3xl font-semibold underline capitalize my-10'>All sellers</h1>
@@ -85,7 +103,7 @@ const AllSellers = () => {
                                         }
                                     </td>
                                     <th className='text-center'>
-                                        <button className="btn btn-xs font-semibold">Remove</button>
+                                        <button onClick={() => handleDelete(seller._id)} className="btn btn-xs font-semibold">Remove</button>
                                     </th>
                                 </tr>
                             )

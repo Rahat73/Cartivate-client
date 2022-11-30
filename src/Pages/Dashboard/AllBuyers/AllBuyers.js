@@ -1,14 +1,30 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const AllBuyers = () => {
 
-    const { data: buyers = [] } = useQuery({
+    const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: () => fetch(`http://localhost:5000/users/admin/buyers`)
             .then(res => res.json())
     })
 
+    const handleDelete = id => {
+        const agree = window.confirm('Are you sure to DELETE the review?')
+        if (agree) {
+            fetch(`http://localhost:5000/users/${id}`, {
+                method: `DELETE`
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        toast.success('User deleted successfully');
+                        refetch();
+                    }
+                });
+        }
+    }
 
     console.log(buyers)
     return (
@@ -46,7 +62,7 @@ const AllBuyers = () => {
                                     </td>
                                     <td>{buyer.verified}</td>
                                     <th className='text-center'>
-                                        <button className="btn btn-xs font-semibold">Remove</button>
+                                        <button onClick={() => handleDelete(buyer._id)} className="btn btn-xs font-semibold">Remove</button>
                                     </th>
                                 </tr>
                             )
