@@ -1,6 +1,16 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const MyOrders = () => {
+    const { user } = useContext(AuthContext);
+
+    const { data: products = [] } = useQuery({
+        queryKey: ['users', user?.email],
+        queryFn: () => fetch(`http://localhost:5000/myorders/${user?.email}`)
+            .then(res => res.json())
+    })
+
     return (
         <div className='h-full w-full bg-base-300'>
             <div className="overflow-x-auto w-11/12 mx-auto my-10">
@@ -16,25 +26,29 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {/* <!-- row 1 --> */}
-                        <tr className='hover'>
-                            <th>1</th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+                        {
+                            products.map((product, i) =>
+                                <tr className='hover'>
+                                    <th>{i + 1}</th>
+                                    <td>
+                                        <div className="flex items-center space-x-3">
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle w-12 h-12">
+                                                    <img src={product?.image} alt="Avatar" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold">{product?.title}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">lambo</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>132$</td>
-                            <th className='text-center'>
-                                <button className="btn btn-ghost btn-xs">$ Pay</button>
-                            </th>
-                        </tr>
+                                    </td>
+                                    <td>{product?.price}$</td>
+                                    <th className='text-center'>
+                                        <button className="btn btn-xs">$ Pay</button>
+                                    </th>
+                                </tr>
+                            )
+                        }
                     </tbody>
                     {/* <!-- foot --> */}
                     <tfoot>

@@ -21,17 +21,21 @@ const ProductModal = ({ productModal }) => {
     const handleBook = (event) => {
         event.preventDefault();
         if (users[0]?.userType === "Buyer") {
+            console.log(orders.length)
             if (orders.length === 0) {
                 const form = event.target;
                 const order = {
                     productId: productModal?._id,
+                    image: productModal?.image,
+                    title: productModal?.title,
+                    price: productModal?.price,
                     userName: user.displayName,
                     userEmail: user.email,
                     mobile: form.mobileNo.value,
                     purchageLocation: form.purchaseLocation.value
                 }
-                fetch('http://localhost:5000/order', {
-                    method: 'POST',
+                fetch(`http://localhost:5000/order/${user.email}/${productModal?._id}`, {
+                    method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
                     },
