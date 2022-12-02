@@ -29,7 +29,7 @@ const MyOrders = () => {
                         {/* <!-- row 1 --> */}
                         {
                             products.map((product, i) =>
-                                <tr className='hover'>
+                                <tr key={product._id} className='hover'>
                                     <th>{i + 1}</th>
                                     <td>
                                         <div className="flex items-center space-x-3">

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
 import useBuyer from '../../hooks/useBuyer';
@@ -8,6 +8,10 @@ import Footer from '../../Pages/Shared/Footer/Footer';
 import Header from '../../Pages/Shared/Header/Header';
 
 const DashboardLayout = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const { user } = useContext(AuthContext);
     const [isAdmin] = useAdmin(user?.email)
     const [isBuyer] = useBuyer(user?.email)
