@@ -38,7 +38,7 @@ const AllSellers = () => {
 
 
     const handleDelete = id => {
-        const agree = window.confirm('Are you sure to DELETE the review?')
+        const agree = window.confirm('Are you sure to DELETE the seller?')
         if (agree) {
             fetch(`http://localhost:5000/users/${id}`, {
                 method: `DELETE`
@@ -46,7 +46,7 @@ const AllSellers = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount > 0) {
-                        toast.success('User deleted successfully');
+                        toast.success('Seller deleted successfully');
                         refetch();
                     }
                 });

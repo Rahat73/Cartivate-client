@@ -6,7 +6,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
     const { data: products = [] } = useQuery({
-        queryKey: ['users', user?.email],
+        queryKey: ['myorders', user?.email],
         queryFn: () => fetch(`http://localhost:5000/myorders/${user?.email}`)
             .then(res => res.json())
     })
