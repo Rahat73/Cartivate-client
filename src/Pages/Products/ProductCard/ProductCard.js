@@ -1,9 +1,16 @@
-import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import { format } from 'date-fns'
 import { parseISO } from 'date-fns/esm';
 
-const ProductCard = ({ product }) => {
+
+const ProductCard = ({ product, setProductModal }) => {
+
+
+    // const [productID, setProductID] = useState();
+    // const handleEligibility = id => {
+    //     // setProductID(id)
+    // }
+
     return (
         <div>
             <div className="card card-compact bg-base-100 shadow-xl">
@@ -28,7 +35,7 @@ const ProductCard = ({ product }) => {
                     </div>
                     <div>Posted On: {format(parseISO(product?.postTime), 'PP')}</div>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Book Now</button>
+                        <label onClick={() => setProductModal(product)} htmlFor="book-modal" className="btn btn-primary">Book Now</label>
                     </div>
                 </div>
             </div>

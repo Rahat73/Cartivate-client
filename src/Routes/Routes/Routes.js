@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
                 element: <Registration></Registration>
             },
             {
-                path: '/products/:categoryId',
+                path: '/category/:categoryId',
                 loader: async ({ params }) => fetch(`http://localhost:5000/products/${params.categoryId}`),
                 element: <Products></Products>,
             },

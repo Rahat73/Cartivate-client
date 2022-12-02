@@ -12,7 +12,7 @@ const AddAProduct = () => {
 
     const { data: users = [] } = useQuery({
         queryKey: ['users', user.email],
-        queryFn: () => fetch(`http://localhost:5000/user/${user.email}`)
+        queryFn: () => fetch(`http://localhost:5000/user/${user?.email}`)
             .then(res => res.json())
     })
 

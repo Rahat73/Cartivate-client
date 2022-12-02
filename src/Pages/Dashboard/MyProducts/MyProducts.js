@@ -6,7 +6,7 @@ import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
 
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     const { data: products = [], refetch } = useQuery({
         queryKey: ['users', user.email],
         queryFn: () => fetch(`http://localhost:5000/myproducts/${user.email}`)
