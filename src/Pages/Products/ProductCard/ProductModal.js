@@ -29,6 +29,7 @@ const ProductModal = ({ productModal }) => {
                     image: productModal?.image,
                     title: productModal?.title,
                     price: productModal?.price,
+                    soldStatus: productModal?.soldStatus,
                     userName: user.displayName,
                     userEmail: user.email,
                     mobile: form.mobileNo.value,
